@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sahana & Sriyassh – Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --bg-deep:       #150715;
+  --bg-mid:        #130d2a;
+  --bg-light:      #1c1440;
+  --lav-deep:      #2d1f5e;
+  --lav-mid:       #3d2878;
+  --lav-bright:    #6b4fa8;
+  --lav-soft:      #9b82cc;
+  --lav-pale:      #c5b8e8;
+  --silver-bright: #e8e8f0;
+  --silver-mid:    #b8b8cc;
+  --silver-dim:    #7a7a92;
+  --gold:          #c8a84a;
+  --gold-light:    #e8c870;
+  --gold-pale:     #f5e4a8;
+  --white:         #ffffff;
+
+  --ff-script:  'Great Vibes', cursive;
+  --ff-display: 'Cinzel', serif;
+  --ff-body:    'Cormorant Garamond', serif;
+  --ff-sans:    'Lato', sans-serif;
+
+  --trans: 0.75s cubic-bezier(.77,0,.18,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--ff-body);
+  background: var(--bg-deep);
+  color: var(--silver-bright);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
+/* ============================================================
+   MANDALA RINGS
+   ============================================================ */
+.mandala {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(200,168,74,0.12);
+  pointer-events: none;
+  animation: rotateMandala 30s linear infinite;
+}
+.mandala.m1 { width: 500px; height: 500px; top: -130px; right: -130px; animation-duration: 45s; border-color: rgba(107,79,168,0.15); }
+.mandala.m2 { width: 300px; height: 300px; top: -30px; right: -30px; animation-duration: 30s; animation-direction: reverse; }
+.mandala.m3 { width: 160px; height: 160px; top: 60px; right: 60px; animation-duration: 20s; border-color: rgba(200,168,74,0.18); }
+.mandala.m4 { width: 450px; height: 450px; bottom: -100px; left: -100px; animation-duration: 38s; animation-direction: reverse; border-color: rgba(107,79,168,0.12); }
+.mandala.m5 { width: 250px; height: 250px; bottom: 30px; left: 30px; animation-duration: 25s; }
+@keyframes rotateMandala { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   PETALS
+   ============================================================ */
+.petals-container {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 998; overflow: hidden;
+}
+.petal {
+  position: absolute; top: -20px;
+  font-size: 13px;
+  animation: fall linear forwards;
+  opacity: 0.65;
+}
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
+  100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+}
+
+/* ============================================================
+   SPARKLE
+   ============================================================ */
+.sparkle {
+  position: fixed; pointer-events: none;
+  z-index: 9999; font-size: 14px;
+  animation: sparkle-anim 0.7s forwards;
+}
+@keyframes sparkle-anim {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%,-80px) scale(1.5); opacity: 0; }
+}
+
+/* ============================================================
+   AUDIO BUTTON
+   ============================================================ */
+#audio-btn {
+  position: fixed;
+  bottom: 1.2rem; right: 1.2rem;
+  z-index: 1000;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lav-mid), var(--gold));
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 4px 20px rgba(200,168,74,0.3);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+#audio-btn:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(200,168,74,0.5); }
+#audio-btn.muted { opacity: 0.5; }
+
+/* ============================================================
+   UPLOAD MUSIC BUTTON
+   ============================================================ */
+#upload-music-btn {
+  position: fixed;
+  bottom: 1.2rem; left: 1.2rem;
+  z-index: 1000;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lav-deep), var(--lav-bright));
+  border: 1.5px solid rgba(200,168,74,0.4);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 4px 20px rgba(107,79,168,0.3);
+  transition: transform 0.25s;
+  overflow: hidden;
+}
+#upload-music-btn:hover { transform: scale(1.12); }
+#upload-music-btn input {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+#music-label { font-size: 17px; pointer-events: none; }
+
+/* ============================================================
+   GOLD DIVIDER
+   ============================================================ */
+.gold-divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0.8rem auto;
+  width: fit-content;
+}
+.gold-divider span {
+  width: 55px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.gold-divider span:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 6px 30px rgba(107,79,168,0.4); }
+  50%      { box-shadow: 0 8px 40px rgba(200,168,74,0.5); }
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(200,168,74,0.5); }
+  to   { text-shadow: 0 0 30px rgba(200,168,74,0.9), 0 0 60px rgba(107,79,168,0.5); }
+}
+@keyframes borderGlow {
+  0%,100% { border-color: rgba(200,168,74,0.3); }
+  50%      { border-color: rgba(200,168,74,0.7); }
+}
+
+/* ============================================================
+   PAGE 1 – COVER (full-bleed bg.jpeg)
+   ============================================================ */
+#page-cover {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+/* bg.jpeg background */
+.cover-photo-bg {
+  position: absolute; inset: 0;
+  background-image: url('bg.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+/* Subtle dark overlay so text is readable */
+.cover-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,5,20,0.35) 0%,
+    rgba(10,5,20,0.18) 40%,
+    rgba(10,5,20,0.55) 100%
+  );
+  z-index: 1;
+}
+
+.cover-inner {
+  position: relative; z-index: 2;
+  height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  padding: 3.5rem 1.5rem 4rem;
+  text-align: center;
+}
+.cover-top { width: 100%; }
+.cover-mid  { width: 100%; }
+.cover-bot  { width: 100%; }
+
+.cover-god {
+  font-family: var(--ff-sans);
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-light); opacity: 0.85;
+  animation: fadeUp 1s 0.2s both;
+}
+.cover-garland {
+  font-size: clamp(16px,3.5vw,22px);
+  margin: 0.5rem 0;
+  letter-spacing: 5px;
+  animation: fadeUp 1s 0.35s both;
+}
+.cover-blessing {
+  font-family: var(--ff-display);
+  font-size: clamp(9px,1.8vw,12px);
+  letter-spacing: 4px; color: var(--gold);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 1s 0.5s both;
+}
+.cover-names {
+  animation: fadeUp 1s 0.65s both;
+  margin: 0.5rem 0;
+}
+.cover-names .bride-name,
+.cover-names .groom-name {
+  font-family: var(--ff-script);
+  font-size: clamp(2.8rem,11vw,6.5rem);
+  line-height: 1;
+  display: block;
+}
+.cover-names .bride-name {
+  color: var(--gold-light);
+  text-shadow: 0 0 40px rgba(200,168,74,0.55);
+}
+.cover-names .groom-name {
+  color: var(--lav-pale);
+  text-shadow: 0 0 40px rgba(107,79,168,0.6);
+}
+.cover-names .ampersand {
+  font-family: var(--ff-script);
+  font-size: clamp(1.8rem,5vw,3.5rem);
+  color: var(--gold);
+  display: block; line-height: 1.3;
+}
+.cover-date-badge {
+  display: inline-block;
+  border: 1px solid rgba(200,168,74,0.45);
+  padding: 0.7rem 2rem;
+  border-radius: 50px;
+  background: rgba(200,168,74,0.06);
+  animation: fadeUp 1s 0.85s both, borderGlow 3s 2s infinite;
+  backdrop-filter: blur(6px);
+}
+.cover-date-badge p {
+  font-family: var(--ff-display);
+  font-size: clamp(11px,2.2vw,14px);
+  color: var(--gold-light); letter-spacing: 2px;
+}
+.cover-subtitle {
+  font-family: var(--ff-body);
+  font-size: clamp(12px,2.2vw,15px);
+  color: var(--silver-mid); opacity: 0.85;
+  margin-top: 0.3rem;
+  font-style: italic;
+  animation: fadeUp 1s 1s both;
+}
+
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+#loading-screen {
+  position: fixed; inset: 0;
+  background: url('bg.jpeg') center center / cover no-repeat;
+  z-index: 9998;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1rem;
+  transition: opacity 0.9s, visibility 0.9s;
+}
+#loading-screen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(10, 5, 20, 0.55);
+  z-index: 0;
+}
+#loading-screen > * { position: relative; z-index: 1; }
+#loading-screen.hidden { opacity: 0; visibility: hidden; }
+.loading-names {
+  font-family: var(--ff-script);
+  font-size: clamp(2rem,6vw,3.2rem);
+  color: var(--gold-light);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+.loading-bar-wrap {
+  width: 180px; height: 1.5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px; overflow: hidden;
+}
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lav-bright), var(--gold));
+  animation: loadBar 2.2s ease-in-out forwards;
+}
+@keyframes loadBar { from { width: 0; } to { width: 100%; } }
+.loading-sub {
+  font-family: var(--ff-sans); font-size: 9px;
+  letter-spacing: 3px; color: var(--gold); opacity: 0.55;
+  text-transform: uppercase;
+}
+
+@media (max-width: 380px) {
+  .cover-names .bride-name,
+  .cover-names .groom-name { font-size: 2.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="loading-names">Sahana &amp; Sriyassh</div>
+  <p class="loading-sub">Wedding Invitation</p>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+</div>
+
+<!-- PETALS -->
+<div class="petals-container" id="petals"></div>
+
+<!-- AUDIO TOGGLE -->
+<button id="audio-btn" onclick="toggleAudio()" title="Play/Pause Music">🎵</button>
+
+<!-- UPLOAD MUSIC BUTTON -->
+<div id="upload-music-btn" title="Upload your music">
+  <span id="music-label">🎼</span>
+  <input type="file" accept="audio/*" id="music-file-input" onchange="loadCustomMusic(this)">
+</div>
+
+<!-- HIDDEN AUDIO ELEMENT -->
+<audio id="bg-audio" loop src="music.mp3"></audio>
+
+<!-- ============================================================
+     PAGE 1 – COVER ONLY
+     ============================================================ -->
+<div id="page-cover">
+
+  <!-- bg.jpeg background -->
+  <div class="cover-photo-bg" id="cover-photo-bg"></div>
+
+  <!-- Gradient overlay for readability -->
+  <div class="cover-overlay"></div>
+
+  <!-- Mandala decorations -->
+  <div class="mandala m1" style="opacity:0.35;z-index:2;"></div>
+  <div class="mandala m2" style="opacity:0.25;z-index:2;"></div>
+  <div class="mandala m3" style="opacity:0.3;z-index:2;"></div>
+  <div class="mandala m4" style="opacity:0.3;z-index:2;"></div>
+  <div class="mandala m5" style="opacity:0.2;z-index:2;"></div>
+
+  <div class="cover-inner">
+    <!-- TOP -->
+    <div class="cover-top">
+      <p class="cover-god">🕉 Shubha Vivaha 🕉</p>
+      <div class="cover-garland">❦ ✦ ❦</div>
+      <p class="cover-blessing">With the blessings of the Almighty</p>
+    </div>
+
+    <!-- MID – Names -->
+    <div class="cover-mid">
+      <div class="cover-names">
+        <span class="bride-name">Sahana</span>
+        <span class="ampersand">&amp;</span>
+        <span class="groom-name">Sriyassh</span>
+      </div>
+    </div>
+
+    <!-- BOT – Date & subtitle -->
+    <div class="cover-bot">
+      <div class="cover-date-badge">
+        <p>Sunday · 25th May 2025</p>
+      </div>
+      <p class="cover-subtitle">cordially invite you to celebrate their wedding</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ---- Sparkle Effect ---- */
+function sparkleEffect(e) {
+  const emojis = ['✨','🌸','💫','⭐','🌟','💐','🌺','✦','💜'];
+  for (let i = 0; i < 7; i++) {
+    const el = document.createElement('div');
+    el.className = 'sparkle';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = (e.clientX + (Math.random()-0.5)*55) + 'px';
+    el.style.top  = (e.clientY + (Math.random()-0.5)*55) + 'px';
+    el.style.animationDelay = (Math.random()*0.25) + 's';
+    el.style.fontSize = (10 + Math.random()*10) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 750);
+  }
+}
+document.addEventListener('click', sparkleEffect);
+
+/* ---- Falling Petals ---- */
+const PETALS = ['🌸','🌺','🌼','🌷','✿','❀','💜','✦'];
+function dropPetals() {
+  const container = document.getElementById('petals');
+  container.innerHTML = '';
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = PETALS[Math.floor(Math.random() * PETALS.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = (4 + Math.random()*4) + 's';
+    p.style.animationDelay    = (Math.random()*2.5) + 's';
+    p.style.fontSize          = (9 + Math.random()*11) + 'px';
+    container.appendChild(p);
+    p.addEventListener('animationend', () => p.remove());
+  }
+}
+
+/* ---- AUDIO ---- */
+let audioCtx = null, playing = false, gainNode = null;
+
+function buildAudio() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 2);
+    gainNode.connect(audioCtx.destination);
+    const freqs   = [261.63,293.66,311.13,349.23,392.00,415.30,466.16,523.25];
+    const pattern = [0,2,4,7,4,2,0,5,3,0,2,4,7,5,3,0];
+    function playNote(i) {
+      const freq = freqs[pattern[i % pattern.length]];
+      const osc  = audioCtx.createOscillator();
+      const env  = audioCtx.createGain();
+      osc.type = 'sine'; osc.frequency.value = freq;
+      env.gain.setValueAtTime(0, audioCtx.currentTime);
+      env.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.15);
+      env.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.9);
+      osc.connect(env); env.connect(gainNode);
+      osc.start(); osc.stop(audioCtx.currentTime + 1);
+    }
+    const drone = audioCtx.createOscillator();
+    const dg    = audioCtx.createGain();
+    drone.type = 'triangle'; drone.frequency.value = 130.81;
+    dg.gain.value = 0.018; drone.connect(dg); dg.connect(gainNode); drone.start();
+    const drone2 = audioCtx.createOscillator();
+    const dg2   = audioCtx.createGain();
+    drone2.type = 'sine'; drone2.frequency.value = 196;
+    dg2.gain.value = 0.01; drone2.connect(dg2); dg2.connect(gainNode); drone2.start();
+    let noteIdx = 0;
+    function scheduleNext() {
+      if (!playing) return;
+      playNote(noteIdx++);
+      setTimeout(scheduleNext, 880 + Math.random()*280);
+    }
+    playing = true;
+    scheduleNext();
+    document.getElementById('audio-btn').textContent = '🎵';
+    document.getElementById('audio-btn').classList.remove('muted');
+  } catch(err) { console.log('Audio error:', err); }
+}
+
+function toggleAudio() {
+  const bgAudio = document.getElementById('bg-audio');
+  if (bgAudio.src && bgAudio.src !== window.location.href) {
+    if (bgAudio.paused) {
+      bgAudio.play();
+      document.getElementById('audio-btn').textContent = '🎵';
+      document.getElementById('audio-btn').classList.remove('muted');
+    } else {
+      bgAudio.pause();
+      document.getElementById('audio-btn').textContent = '🔇';
+      document.getElementById('audio-btn').classList.add('muted');
+    }
+    return;
+  }
+  if (!audioCtx) {
+    buildAudio();
+  } else if (playing) {
+    gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+    playing = false;
+    document.getElementById('audio-btn').textContent = '🔇';
+    document.getElementById('audio-btn').classList.add('muted');
+  } else {
+    gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.5);
+    playing = true;
+    let ni = 0;
+    function sched2() {
+      if (!playing) return;
+      const freqs=[261.63,293.66,311.13,349.23,392.00,415.30,466.16,523.25];
+      const pat=[0,2,4,7,4,2,0,5,3,0,2,4,7,5,3,0];
+      const fr=freqs[pat[ni++ % pat.length]];
+      const o=audioCtx.createOscillator(),e=audioCtx.createGain();
+      o.type='sine';o.frequency.value=fr;
+      e.gain.setValueAtTime(0,audioCtx.currentTime);
+      e.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+0.15);
+      e.gain.linearRampToValueAtTime(0,audioCtx.currentTime+0.9);
+      o.connect(e);e.connect(gainNode);o.start();o.stop(audioCtx.currentTime+1);
+      setTimeout(sched2,880+Math.random()*280);
+    }
+    sched2();
+    document.getElementById('audio-btn').textContent = '🎵';
+    document.getElementById('audio-btn').classList.remove('muted');
+  }
+}
+
+document.addEventListener('click', () => {
+  const bgAudio = document.getElementById('bg-audio');
+  if (bgAudio.paused) {
+    bgAudio.play().then(() => {
+      document.getElementById('audio-btn').textContent = '🎵';
+      document.getElementById('audio-btn').classList.remove('muted');
+    }).catch(() => { if (!audioCtx) buildAudio(); });
+  }
+}, { once: true });
+
+/* ---- CUSTOM MUSIC UPLOAD ---- */
+function loadCustomMusic(input) {
+  if (!input.files || !input.files[0]) return;
+  const url  = URL.createObjectURL(input.files[0]);
+  const bgAudio = document.getElementById('bg-audio');
+  if (audioCtx && playing) {
+    gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+    playing = false;
+  }
+  bgAudio.src = url;
+  bgAudio.play().then(() => {
+    document.getElementById('audio-btn').textContent = '🎵';
+    document.getElementById('audio-btn').classList.remove('muted');
+    document.getElementById('music-label').textContent = '🎶';
+  }).catch(err => console.log('Music play error:', err));
+}
+
+/* ---- Loading Screen ---- */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loading-screen').classList.add('hidden');
+    dropPetals();
+  }, 2400);
+});
+</script>
+</body>
+</html>
