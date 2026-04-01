@@ -132,7 +132,64 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
   animation:fadeUp 0.8s 2.8s both;
 }
 
-/* ============================================================ PAGE 1 – full bleed image, names only */
+/* ============================================================ PAGE 0 – INTRO */
+#p0 {
+  background:url('bg.jpeg') center/cover no-repeat;
+}
+#p0::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(170deg,rgba(42,10,74,0.72) 0%,rgba(107,15,42,0.55) 50%,rgba(10,0,20,0.8) 100%);
+  z-index:0;
+}
+.p0-inner {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:100vh; padding:2rem 1.5rem;
+  text-align:center; gap:0.6rem;
+}
+.p0-blessed { font-family:var(--fn); font-size:8.5px; letter-spacing:4px; text-transform:uppercase; color:rgba(240,192,48,0.8); margin-bottom:0.4rem; animation:fadeUp 0.7s 0.2s both; }
+.p0-god { font-size:clamp(2.2rem,8vw,4rem); animation:fadeUp 0.7s 0.3s both; }
+.p0-names {
+  font-family:var(--fs); font-size:clamp(3.2rem,13vw,6rem);
+  color:#fff; line-height:1.05;
+  text-shadow:0 2px 30px rgba(0,0,0,0.5);
+  animation:fadeUp 0.7s 0.5s both;
+}
+.p0-amp { color:var(--gold3); font-size:0.6em; display:block; line-height:0.85; }
+.p0-date-badge {
+  font-family:var(--fd); font-size:clamp(10px,2vw,13px);
+  color:rgba(240,192,48,0.9); letter-spacing:4px;
+  background:rgba(255,255,255,0.08); border:1px solid rgba(240,192,48,0.3);
+  padding:7px 22px; border-radius:30px; backdrop-filter:blur(6px);
+  animation:fadeUp 0.7s 0.7s both; margin-top:0.3rem;
+}
+.p0-verse {
+  font-family:var(--fb); font-size:clamp(12px,2.2vw,14px);
+  color:rgba(255,255,255,0.75); font-style:italic; line-height:1.7;
+  max-width:320px; animation:fadeUp 0.7s 0.9s both;
+}
+.p0-open-btn {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  cursor:pointer; animation:fadeUp 0.7s 1.1s both;
+  background:none; border:none; padding:0; margin-top:0.8rem;
+}
+.p0-open-ring {
+  width:68px; height:68px; border-radius:50%;
+  border:1.5px solid rgba(240,192,48,0.5);
+  background:rgba(240,192,48,0.1);
+  backdrop-filter:blur(10px);
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px;
+  animation:openPulse 2.2s ease-in-out infinite;
+  box-shadow:0 0 30px rgba(240,192,48,0.12);
+}
+@keyframes openPulse {
+  0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(240,192,48,0.25); }
+  50%      { transform:scale(1.06); box-shadow:0 0 0 14px rgba(240,192,48,0); }
+}
+.p0-open-label { font-family:var(--fn); font-size:9px; letter-spacing:3.5px; color:rgba(240,192,48,0.8); text-transform:uppercase; }
+
+/* ============================================================ PAGE 1 – Happy Couple full bleed */
 #p1 { background:#0a0005; }
 .p1-bg-img {
   position:absolute; inset:0; width:100%; height:100%;
@@ -142,33 +199,90 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
   position:absolute; inset:0;
   background:linear-gradient(
     to bottom,
-    rgba(0,0,0,0.03) 0%,
-    rgba(0,0,0,0.04) 50%,
-    rgba(10,0,16,0.68) 76%,
-    rgba(10,0,16,0.88) 100%
+    rgba(42,10,74,0.45) 0%,
+    rgba(0,0,0,0.04) 40%,
+    rgba(10,0,16,0.65) 76%,
+    rgba(10,0,16,0.90) 100%
   );
 }
+/* TOP TITLE AREA */
+.p1-top {
+  position:absolute; top:0; left:0; right:0;
+  padding:2.2rem 1.5rem 1rem;
+  display:flex; flex-direction:column; align-items:center; gap:0.3rem;
+  text-align:center;
+  z-index:3;
+}
+.p1-happy-label {
+  font-family:var(--fn); font-size:8px; letter-spacing:4px; text-transform:uppercase;
+  color:rgba(240,192,48,0.8);
+  background:rgba(42,10,74,0.45); backdrop-filter:blur(8px);
+  padding:4px 16px; border-radius:20px; border:1px solid rgba(240,192,48,0.3);
+  animation:fadeUp 0.6s 0.2s both;
+}
+.p1-happy-title {
+  font-family:var(--fs); font-size:clamp(2.8rem,11vw,5rem);
+  color:#fff;
+  text-shadow:0 2px 30px rgba(0,0,0,0.6), 0 0 60px rgba(240,192,48,0.25);
+  animation:fadeUp 0.6s 0.35s both;
+  line-height:1.0;
+}
+.p1-happy-names {
+  font-family:var(--fd); font-size:clamp(11px,2.2vw,14px);
+  color:rgba(240,192,48,0.85); letter-spacing:4px;
+  animation:fadeUp 0.6s 0.5s both;
+}
+/* Gold ornamental frame overlay */
+.p1-frame {
+  position:absolute; inset:0; pointer-events:none; z-index:2;
+}
+.p1-frame-corner {
+  position:absolute; font-size:28px; opacity:0.55;
+  animation:fadeIn 1s 0.8s both;
+}
+.p1-frame-corner.tl { top:1rem; left:1rem; }
+.p1-frame-corner.tr { top:1rem; right:1rem; transform:scaleX(-1); }
+.p1-frame-corner.bl { bottom:5.5rem; left:1rem; transform:scaleY(-1); }
+.p1-frame-corner.br { bottom:5.5rem; right:1rem; transform:scale(-1,-1); }
+/* Border lines */
+.p1-frame-line-h {
+  position:absolute; left:2.5rem; right:2.5rem; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(240,192,48,0.5),rgba(240,192,48,0.7),rgba(240,192,48,0.5),transparent);
+  animation:fadeIn 1s 1s both;
+}
+.p1-frame-line-h.top { top:2.6rem; }
+.p1-frame-line-h.bot { bottom:7rem; }
+.p1-frame-line-v {
+  position:absolute; top:2.6rem; bottom:7rem; width:1px;
+  background:linear-gradient(180deg,transparent,rgba(240,192,48,0.5),rgba(240,192,48,0.7),rgba(240,192,48,0.5),transparent);
+  animation:fadeIn 1s 1s both;
+}
+.p1-frame-line-v.left { left:2.5rem; }
+.p1-frame-line-v.right { right:2.5rem; }
+
 .p1-bottom {
   position:absolute; bottom:0; left:0; right:0;
   padding:0 1.5rem 4.5rem;
   display:flex; flex-direction:column; align-items:center; gap:0.55rem;
   text-align:center;
+  z-index:3;
 }
-.p1-names-only {
-  font-family:var(--fs); font-size:clamp(3rem,13vw,5.5rem);
-  color:#fff; line-height:1.05;
-  text-shadow:0 2px 30px rgba(0,0,0,0.5);
-  animation:fadeUp 0.8s 0.3s both;
-}
-.p1-amp-only { color:var(--gold3); font-size:0.65em; display:block; line-height:0.9; }
 
-/* Innovative pulsing next button */
-.p1-next-btn {
+/* ============================================================ SHARED */
+.p-inner { position:relative; z-index:2; min-height:100vh; padding:2.5rem 1.2rem 5rem; max-width:500px; margin:0 auto; text-align:center; }
+.page-label { font-family:var(--fn); font-size:8.5px; letter-spacing:4px; text-transform:uppercase; color:var(--pur3); opacity:0.7; background:rgba(255,255,255,0.7); padding:3px 14px; border-radius:20px; backdrop-filter:blur(4px); display:inline-block; margin-bottom:0.5rem; }
+.page-title { font-family:var(--fs); font-size:clamp(2.4rem,9vw,4rem); display:block; margin:0.2rem 0 0.1rem; }
+.gold-div { display:flex; align-items:center; gap:8px; width:80%; margin:0.6rem auto; }
+.gold-div .gl { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.5),transparent); }
+.gold-div .gd { color:var(--gold); font-size:10px; letter-spacing:3px; }
+
+/* NEXT BUTTON */
+.next-btn {
   display:flex; flex-direction:column; align-items:center; gap:6px;
-  cursor:pointer; animation:fadeUp 0.8s 0.7s both;
-  background:none; border:none; padding:0; margin-top:0.4rem;
+  cursor:pointer;
+  background:none; border:none; padding:0; margin:1.2rem auto 0;
 }
-.p1-next-ring {
+.next-ring {
   width:52px; height:52px; border-radius:50%;
   border:1.5px solid rgba(212,160,16,0.6);
   background:rgba(212,160,16,0.1);
@@ -181,27 +295,20 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
   0%,100% { transform:translateY(0); box-shadow:0 0 0 0 rgba(212,160,16,0.3); }
   50%      { transform:translateY(7px); box-shadow:0 8px 20px rgba(212,160,16,0.25); }
 }
-.p1-next-label { font-family:var(--fn); font-size:8px; letter-spacing:3px; color:rgba(212,160,16,0.75); text-transform:uppercase; }
+.next-label { font-family:var(--fn); font-size:8px; letter-spacing:3px; color:rgba(184,134,11,0.85); text-transform:uppercase; }
+.next-btn-dark .next-ring { border-color:rgba(212,160,16,0.6); background:rgba(212,160,16,0.1); }
+.next-btn-dark .next-label { color:rgba(212,160,16,0.75); }
 
-/* ============================================================ SHARED */
-.p-inner { position:relative; z-index:2; min-height:100vh; padding:2.5rem 1.2rem 5rem; max-width:500px; margin:0 auto; text-align:center; }
-.page-label { font-family:var(--fn); font-size:8.5px; letter-spacing:4px; text-transform:uppercase; color:var(--pur3); opacity:0.7; background:rgba(255,255,255,0.7); padding:3px 14px; border-radius:20px; backdrop-filter:blur(4px); display:inline-block; margin-bottom:0.5rem; }
-.page-title { font-family:var(--fs); font-size:clamp(2.4rem,9vw,4rem); display:block; margin:0.2rem 0 0.1rem; }
-.gold-div { display:flex; align-items:center; gap:8px; width:80%; margin:0.6rem auto; }
-.gold-div .gl { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.5),transparent); }
-.gold-div .gd { color:var(--gold); font-size:10px; letter-spacing:3px; }
-
-/* ============================================================ PERSON PHOTO – no border, full image visible, horizontal */
+/* PERSON PHOTO */
 .person-photo-large {
   width:100%; max-width:460px;
-  /* horizontal/landscape ratio so full image visible without crop */
   aspect-ratio:4/3;
   border-radius:14px; overflow:hidden;
   margin:0 auto 1.3rem; background:#f0e8ff;
 }
 .person-photo-large img {
   width:100%; height:100%;
-  object-fit:contain;   /* show full image, no crop */
+  object-fit:contain;
   object-position:center center;
   display:block;
   background:#f8f0ff;
@@ -221,22 +328,21 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
 .quote-strip { background:linear-gradient(135deg,rgba(74,24,120,0.07),rgba(184,134,11,0.07)); border-left:2.5px solid var(--gold); border-radius:0 12px 12px 0; padding:0.7rem 1rem; margin:0.8rem 0; text-align:left; }
 .quote-strip p { font-family:var(--fb); font-size:clamp(13px,2.3vw,15px); color:var(--pur2); font-style:italic; line-height:1.65; opacity:0.88; }
 
-/* ============================================================ PAGE 2 BRIDE */
+/* PAGE 2 BRIDE */
 #p2 { background:transparent; }
 .p2-bg { position:fixed; inset:0; background:linear-gradient(155deg,#fff8f0 0%,#f5e6ff 40%,#fff0f5 100%); z-index:0; }
 .p2-bg::before { content:''; position:fixed; inset:0; background:url('bg.jpeg') center/cover no-repeat; opacity:0.12; z-index:0; }
 
-/* ============================================================ PAGE 3 GROOM */
+/* PAGE 3 GROOM */
 #p3 { background:transparent; }
 .p3-bg { position:fixed; inset:0; background:linear-gradient(155deg,#f0f0ff 0%,#fff5e6 40%,#f5f0ff 100%); z-index:0; }
 .p3-bg::before { content:''; position:fixed; inset:0; background:url('bg.jpeg') center/cover no-repeat; opacity:0.10; z-index:0; }
 
-/* ============================================================ PAGE 4 TOGETHER + INVITE */
+/* PAGE 4 TOGETHER + INVITE */
 #p4 { background:transparent; }
 .p4-bg { position:fixed; inset:0; background:linear-gradient(155deg,#fff8f5 0%,#f8f0ff 50%,#fff5f0 100%); z-index:0; }
 .p4-bg::before { content:''; position:fixed; inset:0; background:url('bg.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; }
 
-/* Together photo – no border, full image, horizontal */
 .together-photo-large {
   width:100%; max-width:460px;
   aspect-ratio:4/3;
@@ -255,7 +361,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
 .ig-title { font-family:var(--fd); font-size:clamp(12px,2.4vw,15px); color:var(--pur); letter-spacing:2px; margin-bottom:0.5rem; font-weight:600; }
 .ig-text { font-family:var(--fb); font-size:clamp(13px,2.3vw,16px); color:var(--pur2); font-style:italic; line-height:1.75; opacity:0.9; }
 
-/* ============================================================ PAGE 5 DATE / VENUE / EXIT */
+/* PAGE 5 */
 #p5 { background:transparent; }
 .p5-bg { position:fixed; inset:0; background:linear-gradient(155deg,#fff5f0 0%,#f5f0ff 50%,#fff8f0 100%); z-index:0; }
 .p5-bg::before { content:''; position:fixed; inset:0; background:url('bg.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; }
@@ -267,6 +373,41 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
 .vc-place { font-family:var(--fb); font-size:clamp(13px,2.3vw,15px); color:var(--pur2); line-height:1.6; }
 .vc-place strong { color:var(--pur); font-style:normal; }
 .venue-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.4),transparent); margin:0.8rem 0; }
+
+/* ---- LOCATION BUTTON ---- */
+.location-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; margin-top:0.8rem;
+  padding:0.75rem 1.2rem; border-radius:50px;
+  background:linear-gradient(135deg,rgba(42,10,74,0.08),rgba(184,134,11,0.12));
+  border:1.5px solid rgba(184,134,11,0.4);
+  font-family:var(--fn); font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--pur2); cursor:pointer; text-decoration:none;
+  transition:all 0.3s; backdrop-filter:blur(8px);
+}
+.location-btn:hover { background:rgba(184,134,11,0.18); border-color:var(--gold2); color:var(--pur); }
+.location-btn .loc-icon { font-size:16px; }
+
+/* ---- QR CODE SECTION ---- */
+.qr-section {
+  background:linear-gradient(135deg,rgba(255,252,238,0.92),rgba(245,235,255,0.92));
+  border:1.5px solid rgba(184,134,11,0.4);
+  border-radius:20px; padding:1.4rem 1.2rem;
+  backdrop-filter:blur(12px); margin:1rem 0;
+  text-align:center;
+}
+.qr-title { font-family:var(--fd); font-size:clamp(11px,2.2vw,13px); color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:0.5rem; }
+.qr-subtitle { font-family:var(--fb); font-size:clamp(12px,2vw,13px); color:var(--pur2); font-style:italic; margin-bottom:1rem; opacity:0.85; }
+.qr-wrapper {
+  display:inline-block;
+  background:#fff;
+  border:3px solid rgba(184,134,11,0.4);
+  border-radius:14px;
+  padding:10px;
+  box-shadow:0 4px 20px rgba(74,24,120,0.12);
+}
+.qr-wrapper img { width:150px; height:150px; display:block; border-radius:6px; }
+.qr-scan-label { font-family:var(--fn); font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--pur3); margin-top:0.6rem; opacity:0.75; }
 
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; margin:0.8rem 0; }
 .contact-card { background:rgba(255,255,255,0.75); border:1px solid rgba(184,134,11,0.25); border-radius:13px; padding:0.9rem 0.8rem; text-align:center; backdrop-filter:blur(8px); }
@@ -311,40 +452,66 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
   <div class="load-names">Sahana &amp; Sriyassh</div>
   <p class="load-sub">Wedding Invitation</p>
   <div class="load-bar-w"><div class="load-bar"></div></div>
-  <p class="tap-to-open">✨ Tap anywhere to open</p>
+  <p class="tap-to-open">✨ Tap here to open</p>
 </div>
 
 <div class="petals-container" id="petals"></div>
 
 <div id="nav-dots">
-  <div class="ndot active" data-page="0" data-label="Welcome"  onclick="goTo(0)"></div>
-  <div class="ndot"        data-page="1" data-label="Bride"    onclick="goTo(1)"></div>
-  <div class="ndot"        data-page="2" data-label="Groom"    onclick="goTo(2)"></div>
-  <div class="ndot"        data-page="3" data-label="Together" onclick="goTo(3)"></div>
-  <div class="ndot"        data-page="4" data-label="Details"  onclick="goTo(4)"></div>
+  <div class="ndot active" data-page="0" data-label="Cover"   onclick="goTo(0)"></div>
+  <div class="ndot"        data-page="1" data-label="Welcome" onclick="goTo(1)"></div>
+  <div class="ndot"        data-page="2" data-label="Bride"   onclick="goTo(2)"></div>
+  <div class="ndot"        data-page="3" data-label="Groom"   onclick="goTo(3)"></div>
+  <div class="ndot"        data-page="4" data-label="Together"onclick="goTo(4)"></div>
+  <div class="ndot"        data-page="5" data-label="Details" onclick="goTo(5)"></div>
 </div>
 
 <button id="audio-btn" onclick="toggleAudio()" title="Toggle Music">🎵</button>
-<div id="page-counter">1 / 5</div>
+<div id="page-counter">1 / 6</div>
 
-<audio id="audio1" loop src="music1.mp3"></audio>
-<audio id="audio2" loop src="music.mp3"></audio>
+<audio id="audio1" src="music1.mp3"></audio>
+<audio id="audio2" src="music.mp3"></audio>
 
 <div id="app">
 
-<!-- PAGE 1 – full-bleed 1.jpeg, only names + next button -->
-<div id="p1" class="page active">
-  <img class="p1-bg-img" src="1.jpeg" alt="Sahana & Sriyassh" onerror="this.style.display='none'">
-  <div class="p1-gradient-overlay"></div>
-  <div class="p1-bottom">
-    <div class="p1-names-only">
+<!-- PAGE 0 – INTRO -->
+<div id="p0" class="page active">
+  <div class="p0-inner">
+    <p class="p0-blessed">||SRI LAKSHMI RANGANATHA SWAMY PRASANNA ||</p>
+    <div class="p0-god">🌸</div>
+    <div class="p0-names">
       Sahana
-      <span class="p1-amp-only">&amp;</span>
+      <span class="p0-amp">&amp;</span>
       Sriyassh
     </div>
-    <button class="p1-next-btn" onclick="goTo(1)">
-      <div class="p1-next-ring">🌸</div>
-      <span class="p1-next-label">Open Invite</span>
+    <div class="p0-date-badge">20 · 04 · 2026 · Bangalore</div>
+    <p class="p0-verse">"Where you go I will go, and where you stay I will stay."<br>— Ruth 1:16</p>
+    <button class="p0-open-btn" onclick="goTo(1)">
+      <div class="p0-open-ring">💌</div>
+      <span class="p0-open-label">Open Invitation</span>
+    </button>
+  </div>
+</div>
+
+<!-- PAGE 1 – HAPPY COUPLE full-bleed with title + frame -->
+<div id="p1" class="page">
+  <img class="p1-bg-img" src="1.jpeg" onerror="this.style.display='none'">
+  <div class="p1-gradient-overlay"></div>
+
+  
+
+  <!-- TOP – Happy Couple title -->
+  <div class="p1-top">
+    <span class="p1-happy-label">✦ &nbsp; Together &nbsp; ✦</span>
+    <div class="p1-happy-title">Happy Couple</div>
+    <div class="p1-happy-names">Sahana &amp; Sriyassh</div>
+  </div>
+
+  <!-- BOTTOM – next button -->
+  <div class="p1-bottom">
+    <button class="next-btn next-btn-dark" onclick="goTo(2)">
+      <div class="next-ring">💜</div>
+      <span class="next-label">tap here for next</span>
     </button>
   </div>
 </div>
@@ -357,15 +524,10 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
     <span class="page-title" style="color:var(--pur);">Sahana</span>
     <div class="gold-div"><div class="gl"></div><span class="gd">✦</span><div class="gl"></div></div>
 
-    <div class="happy-couple-banner">💜 Happy Couple 💜</div>
+    <div class="happy-couple-banner">💜 Family 💜</div>
 
-    <!-- No border, full image visible, horizontal aspect ratio -->
     <div class="person-photo-large">
       <img src="2.jpeg" alt="Sahana" onerror="this.style.display='none'">
-    </div>
-
-    <div class="quote-strip">
-      <p>"She is clothed with strength and dignity, and she laughs without fear of the future."</p>
     </div>
 
     <div class="detail-card">
@@ -385,6 +547,11 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
       <p class="dc-addr">Beloved sister of the bride</p>
     </div>
     <div class="gold-div"><div class="gl"></div><span class="gd">❦ ✦ ❦</span><div class="gl"></div></div>
+
+    <button class="next-btn" onclick="goTo(3)">
+      <div class="next-ring">🤵</div>
+      <span class="next-label">Meet the Groom</span>
+    </button>
   </div>
 </div>
 
@@ -393,16 +560,11 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
   <div class="p3-bg"></div>
   <div class="p-inner">
     <p class="page-label">The Groom</p>
-    <span class="page-title" style="color:var(--mar);">Sriyassh</span>
+    <span class="page-title" style="color:var(--pur);">Sriyassh</span>
     <div class="gold-div"><div class="gl"></div><span class="gd">✦</span><div class="gl"></div></div>
 
-    <!-- No border, full image visible, horizontal aspect ratio -->
     <div class="person-photo-large" style="background:#fff5f0;">
       <img src="3.jpeg" alt="Sriyassh" onerror="this.style.display='none'">
-    </div>
-
-    <div class="quote-strip" style="border-left-color:var(--mar);">
-      <p>"A man who loves deeply, leads with honour, and walks with grace — today he begins his greatest journey."</p>
     </div>
 
     <div class="detail-card">
@@ -422,6 +584,11 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
       <p class="dc-addr">Beloved brother of the groom</p>
     </div>
     <div class="gold-div"><div class="gl"></div><span class="gd">❦ ✦ ❦</span><div class="gl"></div></div>
+
+    <button class="next-btn" onclick="goTo(4)">
+      <div class="next-ring">💑</div>
+      <span class="next-label">Together</span>
+    </button>
   </div>
 </div>
 
@@ -433,7 +600,6 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
     <span class="page-title" style="color:var(--pur);font-size:clamp(2rem,7vw,3rem);">Together</span>
     <div class="gold-div"><div class="gl"></div><span class="gd">✦</span><div class="gl"></div></div>
 
-    <!-- No border, full image visible, horizontal -->
     <div class="together-photo-large">
       <img src="4.jpeg" alt="Sahana & Sriyassh Together" onerror="this.style.display='none'">
     </div>
@@ -448,10 +614,15 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
       </p>
     </div>
     <div class="gold-div"><div class="gl"></div><span class="gd">❦ ✦ ❦</span><div class="gl"></div></div>
+
+    <button class="next-btn" onclick="goTo(5)">
+      <div class="next-ring">📅</div>
+      <span class="next-label">Venue &amp; Details</span>
+    </button>
   </div>
 </div>
 
-<!-- PAGE 5 – DATE / VENUE / CONTACTS / EXIT -->
+<!-- PAGE 5 – DATE / VENUE / CONTACTS / QR / EXIT -->
 <div id="p5" class="page">
   <div class="p5-bg"></div>
   <div class="p-inner">
@@ -469,6 +640,8 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
         <strong>Venue:</strong> A.G.N. Convention Hall<br>
         No. 2/6, Andrahalli, Near Government School,<br>Vishwaneedam Post, Bangalore – 91
       </p>
+      <!-- LOCATION BUTTON – Reception -->
+      
     </div>
 
     <!-- WEDDING -->
@@ -482,15 +655,25 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
         <strong>Venue:</strong> A.G.N. Convention Hall<br>
         No. 2/6, Andrahalli, Near Government School,<br>Vishwaneedam Post, Bangalore – 91
       </p>
+      <!-- LOCATION BUTTON – Wedding -->
+      <a class="location-btn" href="https://share.google/1wO0F1hNYpgGcn7BP" target="_blank" rel="noopener">
+        <span class="loc-icon">📍</span> Get Directions
+      </a>
     </div>
 
-    <div class="gold-div"><div class="gl"></div><span class="gd">✦</span><div class="gl"></div></div>
-    <p style="font-family:var(--fn);font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--pur2);opacity:0.65;margin-bottom:0.6rem;">For Enquiries</p>
-    <div class="contact-grid">
-      <div class="contact-card"><p class="cc-role">👰 Bride's Father</p><p class="cc-name">Sri Thimmegowda</p><p class="cc-ph">+91 XXXXX XXXXX</p></div>
-      <div class="contact-card"><p class="cc-role">🤵 Groom's Father</p><p class="cc-name">Sri Nagaraj S.</p><p class="cc-ph">+91 XXXXX XXXXX</p></div>
-      <div class="contact-card"><p class="cc-role">🌸 Bride's Mother</p><p class="cc-name">Smt. Hema</p><p class="cc-ph">+91 XXXXX XXXXX</p></div>
-      <div class="contact-card"><p class="cc-role">🌟 Groom's Mother</p><p class="cc-name">Smt. Pushpalatha</p><p class="cc-ph">+91 XXXXX XXXXX</p></div>
+    <!-- QR CODE -->
+    <div class="qr-section">
+      <p class="qr-title">📍 Scan for Venue Location</p>
+      <p class="qr-subtitle">Scan the QR code to open directions on your phone</p>
+      <div class="qr-wrapper">
+        <!-- QR code generated via Google Charts API for the Maps link -->
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fshare.google%2F1wO0F1hNYpgGcn7BP&color=2a0a4a&bgcolor=ffffff&qzone=1&format=png"
+          alt="Venue QR Code"
+          onerror="this.parentElement.innerHTML='<p style=\'font-family:var(--fn);font-size:9px;color:var(--pur2);letter-spacing:2px\'>QR code loads when online</p>'"
+        >
+      </div>
+      <p class="qr-scan-label">✦ &nbsp; A.G.N. Convention Hall, Andrahalli, Bangalore &nbsp; ✦</p>
     </div>
 
     <div class="gold-div" style="margin-top:1.2rem;"><div class="gl"></div><span class="gd">❦ ✦ ❦</span><div class="gl"></div></div>
@@ -499,6 +682,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
       <p class="fc-date">20 · 04 · 2026 · Bangalore</p>
     </div>
 
+    <!-- EXIT BUTTON -->
     <button class="exit-btn" onclick="exitInvite()">🏠 &nbsp; Close Invitation</button>
   </div>
 </div>
@@ -506,26 +690,30 @@ html, body { width:100%; height:100%; overflow:hidden; background:#fff; -webkit-
 </div><!-- #app -->
 
 <script>
-const PAGES = ['p1','p2','p3','p4','p5'];
+const PAGES = ['p0','p1','p2','p3','p4','p5'];
+const TOTAL = PAGES.length;
 let cur = 0;
 
 function goTo(idx) {
   if (idx === cur) return;
-  document.getElementById(PAGES[cur]).classList.remove('active');
-  document.getElementById(PAGES[cur]).classList.add('exit-left');
-  setTimeout(() => document.getElementById(PAGES[cur]).classList.remove('exit-left'), 900);
-  document.querySelectorAll('.ndot')[cur].classList.remove('active');
+  const prevEl = document.getElementById(PAGES[cur]);
+  const prevDot = document.querySelectorAll('.ndot')[cur];
+  prevEl.classList.remove('active');
+  prevEl.classList.add('exit-left');
+  setTimeout(() => prevEl.classList.remove('exit-left'), 900);
+  prevDot.classList.remove('active');
   cur = idx;
-  document.getElementById(PAGES[cur]).classList.add('active');
-  document.getElementById(PAGES[cur]).scrollTop = 0;
+  const nextEl = document.getElementById(PAGES[cur]);
+  nextEl.classList.add('active');
+  nextEl.scrollTop = 0;
   document.querySelectorAll('.ndot')[cur].classList.add('active');
-  document.getElementById('page-counter').textContent = (cur + 1) + ' / ' + PAGES.length;
+  document.getElementById('page-counter').textContent = (cur + 1) + ' / ' + TOTAL;
   handleMusicSwitch(cur);
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key==='ArrowRight'||e.key==='ArrowDown') goTo(Math.min(cur+1,PAGES.length-1));
-  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   goTo(Math.max(cur-1,0));
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') goTo(Math.min(cur+1, TOTAL-1));
+  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   goTo(Math.max(cur-1, 0));
 });
 
 let tx=0, ty=0;
@@ -533,21 +721,33 @@ document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[
 document.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>45){
-    if(dx<0) goTo(Math.min(cur+1,PAGES.length-1));
-    else     goTo(Math.max(cur-1,0));
+    if(dx<0) goTo(Math.min(cur+1, TOTAL-1));
+    else     goTo(Math.max(cur-1, 0));
   }
 },{passive:true});
 
-/* AUDIO */
-const a1 = document.getElementById('audio1'); // pages 0,1 (landing + bride)
-const a2 = document.getElementById('audio2'); // pages 2,3,4 (groom onwards)
+/* ============================================================ AUDIO */
+const a1 = document.getElementById('audio1');
+const a2 = document.getElementById('audio2');
 let audioEnabled = false;
 let currentTrack = 1;
 
+a2.addEventListener('ended', () => {
+  if (!audioEnabled) return;
+  a2.currentTime = 0;
+  a1.currentTime = 0;
+  a1.play().then(() => { currentTrack = 1; }).catch(()=>{});
+});
+
+a1.addEventListener('ended', () => {
+  if (!audioEnabled) return;
+  a1.currentTime = 0;
+  a1.play().catch(()=>{});
+});
+
 function handleMusicSwitch(pageIdx) {
   if (!audioEnabled) return;
-  // music2 starts from page index 2 (groom / 3.jpeg page)
-  if (pageIdx <= 0) {
+  if (pageIdx <= 1) {
     if (!a1.paused) return;
     a2.pause(); a2.currentTime = 0;
     a1.play().catch(()=>{});
@@ -562,15 +762,23 @@ function handleMusicSwitch(pageIdx) {
 
 function startMusic() {
   audioEnabled = true;
-  if (cur <= 1) { a1.play().catch(()=>{}); currentTrack = 1; }
-  else          { a2.play().catch(()=>{}); currentTrack = 2; }
+  if (cur <= 1) {
+    a1.currentTime = 0;
+    a1.play().catch(()=>{});
+    currentTrack = 1;
+  } else {
+    a2.currentTime = 0;
+    a2.play().catch(()=>{});
+    currentTrack = 2;
+  }
   setAudioUI(true);
 }
 
 function toggleAudio() {
-  const active = currentTrack===1 ? a1 : a2;
-  if (!audioEnabled || active.paused) { startMusic(); }
-  else {
+  const active = currentTrack === 1 ? a1 : a2;
+  if (!audioEnabled || active.paused) {
+    startMusic();
+  } else {
     a1.pause(); a2.pause();
     audioEnabled = false;
     setAudioUI(false);
@@ -582,36 +790,58 @@ function setAudioUI(on) {
   document.getElementById('audio-btn').classList.toggle('muted', !on);
 }
 
+/* EXIT – goes back to p0 and re-shows loading screen */
 function exitInvite() {
   a1.pause(); a1.currentTime = 0;
   a2.pause(); a2.currentTime = 0;
   audioEnabled = false;
   setAudioUI(false);
-  goTo(0);
+
+  // First go back to p0 silently
+  const prevEl = document.getElementById(PAGES[cur]);
+  prevEl.classList.remove('active');
+  prevEl.classList.add('exit-left');
+  setTimeout(() => prevEl.classList.remove('exit-left'), 900);
+  document.querySelectorAll('.ndot')[cur].classList.remove('active');
+  cur = 0;
+  document.getElementById(PAGES[cur]).classList.add('active');
+  document.getElementById(PAGES[cur]).scrollTop = 0;
+  document.querySelectorAll('.ndot')[cur].classList.add('active');
+  document.getElementById('page-counter').textContent = '1 / ' + TOTAL;
+
+  // Show loading screen again
+  const ls = document.getElementById('loading-screen');
+  ls.classList.remove('hidden');
+
+  // Re-attach one-time click handler
+  ls.addEventListener('click', function reopenInvite() {
+    startMusic();
+    ls.classList.add('hidden');
+    dropPetals();
+  }, { once: true });
 }
 
-/* Loading screen – auto-start music on tap (required by browsers for audio policy) */
+/* Loading screen */
 document.getElementById('loading-screen').addEventListener('click', function openInvite() {
-  startMusic();   // start music immediately on tap
+  startMusic();
   document.getElementById('loading-screen').classList.add('hidden');
   dropPetals();
-  document.getElementById('page-counter').textContent = '1 / ' + PAGES.length;
+  document.getElementById('page-counter').textContent = '1 / ' + TOTAL;
 }, { once: true });
 
-/* Also try auto-play on page load (works on some browsers/contexts) */
 window.addEventListener('load', () => {
-  document.getElementById('page-counter').textContent = '1 / ' + PAGES.length;
-  // Attempt silent autoplay – browsers may block, fallback is tap
+  document.getElementById('page-counter').textContent = '1 / ' + TOTAL;
   a1.play().then(() => {
     audioEnabled = true;
     currentTrack = 1;
     setAudioUI(true);
-  }).catch(() => {
-    // blocked by browser – music will start on first tap (loading screen click)
-  });
+  }).catch(() => {});
 });
 
+/* Sparkles */
 function sparkleEffect(e) {
+  // Don't sparkle on location links or QR
+  if (e.target.closest('a') || e.target.closest('.qr-wrapper')) return;
   ['✨','🌸','💜','💫','🌺','✦','🪷'].forEach((em,i) => {
     const el=document.createElement('div'); el.className='sparkle'; el.textContent=em;
     el.style.cssText=`left:${e.clientX+(Math.random()-.5)*55}px;top:${e.clientY+(Math.random()-.5)*55}px;animation-delay:${i*0.04}s;font-size:${10+Math.random()*10}px`;
@@ -620,7 +850,8 @@ function sparkleEffect(e) {
 }
 document.addEventListener('click', sparkleEffect);
 
-const PETALS=['🌸','🌺','🌼','🌷','💜','✦','🪷','💐'];
+/* Petals */
+const PETALS=['🌸','🌺','🌼','💜','✦'];
 function dropPetals() {
   const c=document.getElementById('petals'); c.innerHTML='';
   for(let i=0;i<24;i++){
